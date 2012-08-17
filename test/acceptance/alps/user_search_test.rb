@@ -20,7 +20,7 @@ describe "User searching" do
   end
 
   it "does a search when using the form as a template" do
-    zebra = Fabricate(:user, :username => "zebra")
+    zebra = FactoryGirl.create(:user, :username => "zebra")
 
     visit "/"
     find(:xpath,  "//a[contains(@rel, 'users-search')]").click

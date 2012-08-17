@@ -21,7 +21,7 @@ describe "Message searching" do
 
   it "does a search when using the form as a template" do
     @update_text = "These aren't the droids you're looking for!"
-    Fabricate(:update, :text => @update_text)
+    FactoryGirl.create(:update, :text => @update_text)
 
     visit "/"
     find(:xpath,  "//a[contains(@rel, 'messages-search')]").click

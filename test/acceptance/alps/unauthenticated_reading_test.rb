@@ -13,8 +13,8 @@ describe "Unauthenticated reading" do
 
   describe "ALPS all, rstat.us world (/updates)" do
     it "has an individual status in an li with class message" do
-      @u2 = Fabricate(:user)
-      @update = Fabricate(:update)
+      @u2 = FactoryGirl.create(:user)
+      @update = FactoryGirl.create(:update)
       @u2.feed.updates << @update
 
       visit "/updates"
@@ -32,7 +32,7 @@ describe "Unauthenticated reading" do
 
   describe "ALPS single, rstat.us update show" do
     before do
-      @update = Fabricate(:update)
+      @update = FactoryGirl.create(:update)
       visit "/updates/#{@update.id}"
     end
 
@@ -53,9 +53,7 @@ describe "Unauthenticated reading" do
 
   describe "pagination" do
     it "does not paginate when there are too few" do
-      5.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 5)
 
       visit "/updates"
 
@@ -64,9 +62,7 @@ describe "Unauthenticated reading" do
     end
 
     it "paginates forward only if on the first page" do
-      30.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 30)
 
       visit "/updates"
 
@@ -75,9 +71,7 @@ describe "Unauthenticated reading" do
     end
 
     it "paginates backward only if on the last page" do
-      30.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 30)
 
       visit "/updates"
       find(:xpath, "//a[contains(@rel, 'next')]").click
@@ -87,9 +81,7 @@ describe "Unauthenticated reading" do
     end
 
     it "paginates forward and backward if on a middle page" do
-      54.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 54)
 
       visit "/updates"
       find(:xpath, "//a[contains(@rel, 'next')]").click

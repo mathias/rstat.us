@@ -5,7 +5,7 @@ describe "ALPS li.user descendants" do
   include AcceptanceHelper
 
   before do
-    @user = Fabricate(:user, :username => "alps")
+    @user = FactoryGirl.create(:user, :username => "alps")
     visit "/users?search=#{@user.username}"
   end
 

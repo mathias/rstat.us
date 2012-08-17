@@ -1,5 +1,6 @@
 require "minitest/autorun"
 require "webmock/test_unit"
+require 'factory_girl'
 
 ENV["RAILS_ENV"] = "test"
 begin
@@ -25,10 +26,6 @@ rescue Mongo::ConnectionFailure => e
 
   DERPMSG
   exit 1
-end
-
-Fabrication.configure do |config|
-  fabricator_dir = "test/fabricators"
 end
 
 module TestHelper

@@ -5,8 +5,8 @@ describe "ALPS single user" do
   include AcceptanceHelper
 
   before do
-    @user = Fabricate(:user)
-    @update = Fabricate(:update)
+    @user = FactoryGirl.create(:user)
+    @update = FactoryGirl.create(:update)
     @user.feed.updates << @update
   end
 

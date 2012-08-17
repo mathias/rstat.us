@@ -65,14 +65,14 @@ module AcceptanceHelper
   end
 
   def log_in_with_some_twitter
-    @u = Fabricate(:user)
-    @a = Fabricate(:authorization, :user => @u)
+    @u = FactoryGirl.create(:user)
+    @a = FactoryGirl.create(:authorization, :user => @u)
 
     log_in(@u, @a.uid)
   end
 
   def log_in_with_some_username
-    @u = Fabricate(:user)
+    @u = FactoryGirl.create(:user)
     log_in_username(@u)
   end
 

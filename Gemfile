@@ -54,7 +54,7 @@ end
 
 group :development, :test do
   gem "database_cleaner", "~> 0.6.7"
-  gem "fabrication", "~> 1.2.0"
+  gem "factory_girl"
   gem "capybara", "~> 1.1.2"
   gem "show_me_the_cookies", "~> 1.1.0"
   gem "rocco", :git => "git://github.com/rtomayko/rocco.git"
