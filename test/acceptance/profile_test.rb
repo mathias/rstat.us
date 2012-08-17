@@ -5,13 +5,13 @@ describe "profile" do
   include AcceptanceHelper
 
   it "redirects to the username's profile with the right case" do
-    u = Fabricate(:user)
+    u = FactoryGirl.create(:user)
     visit "/users/#{u.username.upcase}"
     current_url.must_match(/\/users\/#{u.username}$/)
   end
 
   it "allows viewing of profiles when username contains a dot" do
-    u = Fabricate(:user, :username => "foo.bar")
+    u = FactoryGirl.create(:user, :username => "foo.bar")
     visit "/users/#{u.username}"
 
     page.within('div.nickname') do
@@ -20,12 +20,12 @@ describe "profile" do
   end
 
   it "has the user's updates on the page in reverse chronological order" do
-    u = Fabricate(:user)
-    update1 = Fabricate(:update,
+    u = FactoryGirl.create(:user)
+    update1 = FactoryGirl.create(:update,
                       :text       => "This is a message posted yesterday",
                       :author     => u.author,
                       :created_at => 1.day.ago)
-    update2 = Fabricate(:update,
+    update2 = FactoryGirl.create(:update,
                       :text       => "This is a message posted last week",
                       :author     => u.author,
                       :created_at => 1.week.ago)
@@ -120,8 +120,8 @@ describe "profile" do
     end
 
     it "does not verify your email if you havent specified one" do
-      user_without_email = Fabricate(:user, :email => nil, :username => "no_email")
-      a = Fabricate(:authorization, :user => user_without_email)
+      user_without_email = FactoryGirl.create(:user, :email => nil, :username => "no_email")
+      a = FactoryGirl.create(:authorization, :user => user_without_email)
 
       log_in(user_without_email, a.uid)
       visit "/users/#{user_without_email.username}/edit"
@@ -157,14 +157,14 @@ describe "profile" do
   end
 
   it "doesn't let you update someone else's profile" do
-    u = Fabricate(:user)
+    u = FactoryGirl.create(:user)
     visit "/users/#{u.username}/edit"
     assert_match /\/users\/#{u.username}$/, page.current_url
   end
 
   it "does let you update your profile even if you use a different case in the url" do
-    u = Fabricate(:user, :username => "LADY_GAGA")
-    a = Fabricate(:authorization, :user => u)
+    u = FactoryGirl.create(:user, :username => "LADY_GAGA")
+    a = FactoryGirl.create(:authorization, :user => u)
     log_in(u, a.uid)
     visit "/users/lady_gaga/edit"
     bio_text = "To be or not to be"

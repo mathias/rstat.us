@@ -7,8 +7,8 @@ describe "replies" do
   it "shows replies" do
     log_in_as_some_user
 
-    u2 = Fabricate(:user)
-    u2.feed.updates << Fabricate(:update, :text => "@#{@u.username} Hey man.")
+    u2 = FactoryGirl.create(:user)
+    u2.feed.updates << FactoryGirl.create(:update, :text => "@#{@u.username} Hey man.")
 
     visit "/replies"
 
@@ -18,11 +18,11 @@ describe "replies" do
   it "shows replies with css class mention" do
     log_in_as_some_user
 
-    u2 = Fabricate(:user)
-    a2 = Fabricate(:authorization, :user => u2)
+    u2 = FactoryGirl.create(:user)
+    a2 = FactoryGirl.create(:authorization, :user => u2)
 
-    u2.feed.updates << Fabricate(:update, :text => "@#{@u.username} Hey man.")
-    @u.feed.updates << Fabricate(:update, :text => "some text @someone, @#{u2.username} Hey man.")
+    u2.feed.updates << FactoryGirl.create(:update, :text => "@#{@u.username} Hey man.")
+    @u.feed.updates << FactoryGirl.create(:update, :text => "some text @someone, @#{u2.username} Hey man.")
     visit "/updates"
 
     assert has_selector?("#updates .mention")

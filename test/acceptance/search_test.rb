@@ -12,7 +12,7 @@ describe "search" do
 
   before do
     @update_text = "These aren't the droids you're looking for!"
-    Fabricate(:update, :text => @update_text)
+    FactoryGirl.create(:update, :text => @update_text)
   end
 
   describe "logged in" do
@@ -80,7 +80,7 @@ describe "search" do
 
     it "gets a match for hashtag search" do
       @hashtag_update_text = "This is a test #hashtag"
-      Fabricate(:update, :text => @hashtag_update_text)
+      FactoryGirl.create(:update, :text => @hashtag_update_text)
 
       search_for("#hashtag")
 
@@ -90,9 +90,7 @@ describe "search" do
 
   describe "pagination" do
     it "does not paginate when there are too few" do
-      5.times do
-        Fabricate(:update, :text => "Testing pagination LIKE A BOSS")
-      end
+      FactoryGirl.create_list(:update, 5, :text => "Testing pagination LIKE A BOSS")
 
       search_for("boss")
 
@@ -101,9 +99,7 @@ describe "search" do
     end
 
     it "paginates forward only if on the first page" do
-      30.times do
-        Fabricate(:update, :text => "Testing pagination LIKE A BOSS")
-      end
+      FactoryGirl.create_list(:update, 30, :text => "Testing pagination LIKE A BOSS")
 
       search_for("boss")
 
@@ -112,9 +108,7 @@ describe "search" do
     end
 
     it "paginates backward only if on the last page" do
-      30.times do
-        Fabricate(:update, :text => "Testing pagination LIKE A BOSS")
-      end
+      FactoryGirl.create_list(:update, 30, :text => "Testing pagination LIKE A BOSS")
 
       search_for("boss")
       click_link "next_button"
@@ -124,9 +118,7 @@ describe "search" do
     end
 
     it "paginates forward and backward if on a middle page" do
-      54.times do
-        Fabricate(:update, :text => "Testing pagination LIKE A BOSS")
-      end
+      FactoryGirl.create_list(:update, 54, :text => "Testing pagination LIKE A BOSS")
 
       search_for("boss")
       click_link "next_button"

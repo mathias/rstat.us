@@ -5,10 +5,10 @@ describe "update" do
   include AcceptanceHelper
 
   it "renders your feed" do
-    author = Fabricate(:author)
+    author = FactoryGirl.create(:author)
     feed = author.feed
 
-    feed.updates = (1..5).map { Fabricate(:update) }
+    feed.updates = (1..5).map { FactoryGirl.create(:update) }
     feed.save
 
     visit "/feeds/#{feed.id}.atom"
@@ -21,8 +21,8 @@ describe "update" do
   it "renders the world's updates" do
     log_in_as_some_user
 
-    u2 = Fabricate(:user)
-    update = Fabricate(:update)
+    u2 = FactoryGirl.create(:user)
+    update = FactoryGirl.create(:update)
     u2.feed.updates << update
 
     visit "/updates"
@@ -57,15 +57,15 @@ describe "update" do
   end
 
   it "shows one update" do
-    update = Fabricate(:update)
+    update = FactoryGirl.create(:update)
 
     visit "/updates/#{update.id}"
     assert_match page.body, /#{update.text}/
   end
 
   it "shows an update in reply to another update" do
-    update = Fabricate(:update)
-    update2 = Fabricate(:update)
+    update = FactoryGirl.create(:update)
+    update2 = FactoryGirl.create(:update)
     update2.referral_id = update.id
     update2.save
 
@@ -93,7 +93,7 @@ describe "update" do
     before do
       log_in_as_some_user
 
-      @u.feed.updates << Fabricate(:update, :author => @u.author)
+      @u.feed.updates << FactoryGirl.create(:update, :author => @u.author)
     end
 
     it "destroys own update" do
@@ -108,7 +108,7 @@ describe "update" do
 
     it "doesn't destroy not own update" do
       skip "Passing locally but failing on Travis and we don't know why"
-      author = Fabricate(:author)
+      author = FactoryGirl.create(:author)
       visit "/users/#{@u.username}"
 
       Update.any_instance.stubs(:author).returns(author)
@@ -125,8 +125,8 @@ describe "update" do
     before do
       log_in_as_some_user(:with => :username)
 
-      @u2 = Fabricate(:user)
-      @u2.feed.updates << Fabricate(:update, :author => @u2.author)
+      @u2 = FactoryGirl.create(:user)
+      @u2.feed.updates << FactoryGirl.create(:update, :author => @u2.author)
     end
 
     it "clicks the reply link from update on a user's page" do
@@ -148,9 +148,7 @@ describe "update" do
 
   describe "pagination" do
     it "does not paginate when there are too few" do
-      5.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 5)
 
       visit "/updates"
 
@@ -159,9 +157,7 @@ describe "update" do
     end
 
     it "paginates forward only if on the first page" do
-      30.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 30)
 
       visit "/updates"
 
@@ -170,9 +166,7 @@ describe "update" do
     end
 
     it "paginates backward only if on the last page" do
-      30.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 30)
 
       visit "/updates"
       click_link "next_button"
@@ -182,9 +176,7 @@ describe "update" do
     end
 
     it "paginates forward and backward if on a middle page" do
-      54.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 54)
 
       visit "/updates"
       click_link "next_button"
@@ -239,15 +231,15 @@ describe "update" do
     end
 
     it "has a status of myself in my timeline" do
-      update = Fabricate(:update, :author => @u.author)
+      update = FactoryGirl.create(:update, :author => @u.author)
       @u.feed.updates << update
       visit "/"
       assert_match page.body, /#{update.text}/
     end
 
     it "has a status of someone i'm following in my timeline" do
-      u2 = Fabricate(:user)
-      update = Fabricate(:update, :author => u2.author)
+      u2 = FactoryGirl.create(:user)
+      update = FactoryGirl.create(:update, :author => u2.author)
       u2.feed.updates << update
       @u.follow! u2.feed
 
@@ -256,8 +248,8 @@ describe "update" do
     end
 
     it "does not have a status of someone i'm not following in my timeline" do
-      u2 = Fabricate(:user)
-      update = Fabricate(:update, :author => u2.author)
+      u2 = FactoryGirl.create(:user)
+      update = FactoryGirl.create(:update, :author => u2.author)
       u2.feed.updates << update
 
       visit "/"
@@ -271,7 +263,7 @@ describe "update" do
     end
 
     it "has my updates in the world view" do
-      update = Fabricate(:update, :author => @u.author)
+      update = FactoryGirl.create(:update, :author => @u.author)
       @u.feed.updates << update
 
       visit "/updates"
@@ -279,8 +271,8 @@ describe "update" do
     end
 
     it "has someone i'm following in the world view" do
-      u2 = Fabricate(:user)
-      update = Fabricate(:update, :author => u2.author)
+      u2 = FactoryGirl.create(:user)
+      update = FactoryGirl.create(:update, :author => u2.author)
       u2.feed.updates << update
       @u.follow! u2.feed
 
@@ -289,8 +281,8 @@ describe "update" do
     end
 
     it "has someone i'm not following in the world view" do
-      u2 = Fabricate(:user)
-      update = Fabricate(:update, :author => u2.author)
+      u2 = FactoryGirl.create(:user)
+      update = FactoryGirl.create(:update, :author => u2.author)
       u2.feed.updates << update
 
       visit "/updates"

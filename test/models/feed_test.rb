@@ -6,7 +6,7 @@ describe Feed do
   describe "#populate_entries" do
     describe "new update" do
       it "creates a new update" do
-        f = Fabricate(:feed)
+        f = FactoryGirl.create(:feed)
         updates_before = f.updates.length
 
         f.populate_entries([
@@ -20,8 +20,8 @@ describe Feed do
       end
 
       it "does nothing if the entry's URL is nil (just going to toss these until ostatus bug #4 is fixed)" do
-        f = Fabricate(:feed)
-        Fabricate(:update, :feed => f, :text => "Nacho update")
+        f = FactoryGirl.create(:feed)
+        FactoryGirl.create(:update, :feed => f, :text => "Nacho update")
         updates_before = f.updates.length
 
         f.populate_entries([
@@ -35,8 +35,8 @@ describe Feed do
 
     describe "existing update" do
       it "does not create a new update if this update already exists" do
-        f = Fabricate(:feed)
-        u = Fabricate(:update, :feed => f, :remote_url => "http://a.b/1")
+        f = FactoryGirl.create(:feed)
+        u = FactoryGirl.create(:update, :feed => f, :remote_url => "http://a.b/1")
         update_text_before = u.text
         updates_before = f.updates.length
 
@@ -49,8 +49,8 @@ describe Feed do
       end
 
       it "does not change the existing update if the verb isn't update" do
-        f = Fabricate(:feed)
-        u = Fabricate(:update, :feed => f, :remote_url => "http://a.b/1")
+        f = FactoryGirl.create(:feed)
+        u = FactoryGirl.create(:update, :feed => f, :remote_url => "http://a.b/1")
         update_text_before = u.text
         updates_before = f.updates.length
 
@@ -67,8 +67,8 @@ describe Feed do
       end
 
       it "changes the existing update if the verb is update" do
-        f = Fabricate(:feed)
-        u = Fabricate(:update, :feed => f, :remote_url => "http://a.b/1")
+        f = FactoryGirl.create(:feed)
+        u = FactoryGirl.create(:update, :feed => f, :remote_url => "http://a.b/1")
         update_text_before = u.text
         updates_before = f.updates.length
 
@@ -88,9 +88,9 @@ describe Feed do
 
   describe "#atom" do
     before do
-      @f = Fabricate(:feed)
-      @later = Fabricate(:update, :feed => @f, :created_at => 1.day.ago)
-      @earlier = Fabricate(:update, :feed => @f, :created_at => 2.days.ago)
+      @f = FactoryGirl.create(:feed)
+      @later = FactoryGirl.create(:update, :feed => @f, :created_at => 1.day.ago)
+      @earlier = FactoryGirl.create(:update, :feed => @f, :created_at => 2.days.ago)
     end
 
     it "sorts updates in reverse chronological order by created_at" do
@@ -123,9 +123,9 @@ describe Feed do
 
   describe "#last_update" do
     it "returns the most recently created update" do
-      f = Fabricate(:feed)
-      later = Fabricate(:update, :feed => f, :created_at => 1.day.ago)
-      earlier = Fabricate(:update, :feed => f, :created_at => 2.days.ago)
+      f = FactoryGirl.create(:feed)
+      later = FactoryGirl.create(:update, :feed => f, :created_at => 1.day.ago)
+      earlier = FactoryGirl.create(:update, :feed => f, :created_at => 2.days.ago)
 
       f.last_update.must_equal(later)
     end

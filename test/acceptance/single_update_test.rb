@@ -5,7 +5,7 @@ describe "update" do
   include AcceptanceHelper
 
   it "goes to one update's page" do
-    u = Fabricate(:update)
+    u = FactoryGirl.create(:update)
     visit "/updates/#{u.id}"
 
     within ".update .update-text" do

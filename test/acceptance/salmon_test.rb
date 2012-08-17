@@ -10,13 +10,13 @@ describe "Salmon" do
   end
 
   it "404s if there is no request body" do
-    feed = Fabricate(:feed)
+    feed = FactoryGirl.create(:feed)
     visit "/feeds/#{feed.id}/salmon"
     page.status_code.must_equal(404)
   end
 
   it "404s if the request body does not contain a magic envelope" do
-    feed = Fabricate(:feed)
+    feed = FactoryGirl.create(:feed)
     post "/feeds/#{feed.id}/salmon", "<?xml version='1.0' encoding='UTF-8'?><bogus-xml />"
     if last_response.status == 301
       follow_redirect!

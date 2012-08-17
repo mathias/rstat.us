@@ -10,20 +10,20 @@ describe "basic access" do
   end
 
   it "visits feeds" do
-    author = Fabricate(:author)
+    author = FactoryGirl.create(:author)
     feed = author.feed
     visit "/feeds/#{feed.id}.atom"
     assert_equal 200, page.status_code
   end
 
   it "visits my user feed" do
-    u = Fabricate(:user)
+    u = FactoryGirl.create(:user)
     visit "/users/#{u.username}/feed"
     assert_equal 200, page.status_code
   end
 
   it "visits my profile" do
-    u = Fabricate(:user)
+    u = FactoryGirl.create(:user)
     visit "/users/#{u.username}"
     assert_equal 200, page.status_code
   end

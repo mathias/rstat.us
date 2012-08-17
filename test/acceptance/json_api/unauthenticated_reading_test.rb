@@ -5,12 +5,12 @@ describe "JSON Unauthenticated reading" do
   include AcceptanceHelper
 
   it "can request an individual user's timeline" do
-    u = Fabricate(:user)
-    update0 = Fabricate(:update,
+    u = FactoryGirl.create(:user)
+    update0 = FactoryGirl.create(:update,
                       :text       => "This is a message posted yesterday",
                       :author     => u.author,
                       :created_at => 1.day.ago)
-    update1 = Fabricate(:update,
+    update1 = FactoryGirl.create(:update,
                       :text       => "This is a message posted last week",
                       :author     => u.author,
                       :created_at => 1.week.ago)
@@ -31,8 +31,8 @@ describe "JSON Unauthenticated reading" do
   end
 
   it "can request all updates" do
-    u = Fabricate(:user)
-    update = Fabricate(:update,
+    u = FactoryGirl.create(:user)
+    update = FactoryGirl.create(:update,
                :author => u.author
              )
     u.feed.updates << update
@@ -48,9 +48,7 @@ describe "JSON Unauthenticated reading" do
 
   describe "pagination" do
     it "does not paginate when there are too few" do
-      5.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 5)
 
       visit "/updates.json?page=2"
 
@@ -59,9 +57,7 @@ describe "JSON Unauthenticated reading" do
     end
 
     it "returns the next page of results if we add the page param" do
-      30.times do
-        Fabricate(:update)
-      end
+      FactoryGirl.create_list(:update, 30)
 
       visit "/updates.json?page=2"
       parsed_json = JSON.parse(source)

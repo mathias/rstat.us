@@ -5,7 +5,7 @@ describe "Webfinger" do
 
   describe "#find_user" do
     before do
-      @user = Fabricate(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     it "returns nil if it can't find the user" do

@@ -5,7 +5,7 @@ describe "feeds" do
   include AcceptanceHelper
 
   it "redirects to the username's atom feed with the right case" do
-    u = Fabricate(:user)
+    u = FactoryGirl.create(:user)
     visit "/users/#{u.username.upcase}/feed"
     current_url.must_match(/\/feeds\/#{u.feed.id}.atom$/)
   end
@@ -22,10 +22,8 @@ describe "feeds" do
 
   describe "atom for the hub" do
     it "returns 20 updates if no cache header info is supplied" do
-      f = Fabricate(:feed)
-      21.times do
-        Fabricate(:update, :feed => f)
-      end
+      f = FactoryGirl.create(:feed)
+      FactoryGirl.create_list(:update, 21, :feed => f)
 
       get "/feeds/#{f.id}.atom"
       if last_response.status == 301
@@ -39,9 +37,9 @@ describe "feeds" do
     end
 
     it "returns updates respecting If-Modified-Since cache header if used" do
-      f = Fabricate(:feed)
-      later = Fabricate(:update, :feed => f, :created_at => 1.day.ago)
-      earlier = Fabricate(:update, :feed => f, :created_at => 2.weeks.ago)
+      f = FactoryGirl.create(:feed)
+      later = FactoryGirl.create(:update, :feed => f, :created_at => 1.day.ago)
+      earlier = FactoryGirl.create(:update, :feed => f, :created_at => 2.weeks.ago)
 
       if ENV["ENABLE_HTTPS"] == "yes"
         url = "https://www.example.com/feeds/#{f.id}.atom"

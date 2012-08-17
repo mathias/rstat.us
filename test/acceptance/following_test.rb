@@ -6,12 +6,12 @@ describe "following" do
 
   describe "yourself" do
     it "doesn't make you follow yourself after signing up" do
-      u = Fabricate(:user)
+      u = FactoryGirl.create(:user)
       refute u.following_url? u.feed.url
     end
 
     it "disallows following yourself" do
-      u = Fabricate(:user)
+      u = FactoryGirl.create(:user)
       u.follow! u.feed
       refute u.following_url? u.feed.url
     end
@@ -21,7 +21,7 @@ describe "following" do
     it "follows another user" do
       log_in_as_some_user
 
-      u2 = Fabricate(:user)
+      u2 = FactoryGirl.create(:user)
 
       visit "/users/#{u2.username}"
 
@@ -32,8 +32,8 @@ describe "following" do
     it "unfollows another user" do
       log_in_as_some_user
 
-      u2 = Fabricate(:user)
-      a2 = Fabricate(:authorization, :user => u2)
+      u2 = FactoryGirl.create(:user)
+      a2 = FactoryGirl.create(:authorization, :user => u2)
 
       @u.follow! u2.feed
 
@@ -50,8 +50,8 @@ describe "following" do
     it "maintains the order in which you follow people" do
       log_in_as_some_user
 
-      zebra    = Fabricate(:user, :username => "zebra")
-      leopard  = Fabricate(:user, :username => "leopard")
+      zebra    = FactoryGirl.create(:user, :username => "zebra")
+      leopard  = FactoryGirl.create(:user, :username => "leopard")
 
       @u.follow! zebra.feed
       @u.follow! leopard.feed
@@ -63,7 +63,7 @@ describe "following" do
     it "outputs json" do
       log_in_as_some_user
 
-      u2 = Fabricate(:user, :username => "user1")
+      u2 = FactoryGirl.create(:user, :username => "user1")
       @u.follow! u2.feed
 
       visit "/users/#{@u.username}/following.json"
@@ -81,14 +81,14 @@ describe "following" do
     end
 
     it "uses your username if not logged in" do
-      u = Fabricate(:user, :username => "dfnkt")
+      u = FactoryGirl.create(:user, :username => "dfnkt")
 
       visit "/users/#{u.username}/following"
       assert_match "#{u.username} is following", page.body
     end
 
     it "redirects to the correct case" do
-      u = Fabricate(:user, :username => "dfnkt")
+      u = FactoryGirl.create(:user, :username => "dfnkt")
 
       visit "/users/#{u.username.upcase}/following"
       assert_match "#{u.username} is following", page.body
@@ -101,7 +101,7 @@ describe "following" do
     end
 
     it "has a nice message if not following anyone" do
-      u = Fabricate(:user, :username => "dfnkt")
+      u = FactoryGirl.create(:user, :username => "dfnkt")
 
       visit "/users/#{u.username}/following"
 
@@ -113,7 +113,7 @@ describe "following" do
         log_in_as_some_user
 
         5.times do
-          u2 = Fabricate(:user)
+          u2 = FactoryGirl.create(:user)
           @u.follow! u2.feed
         end
       end
@@ -155,8 +155,8 @@ describe "following" do
     it "maintains the order in which people follow you" do
       log_in_as_some_user
 
-      zebra    = Fabricate(:user, :username => "zebra")
-      leopard  = Fabricate(:user, :username => "leopard")
+      zebra    = FactoryGirl.create(:user, :username => "zebra")
+      leopard  = FactoryGirl.create(:user, :username => "leopard")
 
       zebra.follow! @u.feed
       leopard.follow! @u.feed
@@ -174,14 +174,14 @@ describe "following" do
     end
 
     it "uses your username if not logged in" do
-      u = Fabricate(:user, :username => "dfnkt")
+      u = FactoryGirl.create(:user, :username => "dfnkt")
 
       visit "/users/#{u.username}/followers"
       assert_match "#{u.username}'s followers", page.body
     end
 
     it "redirects to the correct case" do
-      u = Fabricate(:user, :username => "dfnkt")
+      u = FactoryGirl.create(:user, :username => "dfnkt")
 
       visit "/users/#{u.username.upcase}/followers"
       assert_match "#{u.username}'s followers", page.body
@@ -194,7 +194,7 @@ describe "following" do
     end
 
     it "has a nice message if not followed by anyone" do
-      u = Fabricate(:user, :username => "dfnkt")
+      u = FactoryGirl.create(:user, :username => "dfnkt")
 
       visit "/users/#{u.username}/followers"
 
@@ -206,7 +206,7 @@ describe "following" do
         log_in_as_some_user
 
         5.times do
-          u2 = Fabricate(:user)
+          u2 = FactoryGirl.create(:user)
           u2.follow! @u.feed
         end
       end

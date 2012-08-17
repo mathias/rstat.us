@@ -15,7 +15,7 @@ describe "forgotten password" do
   end
 
   it "sets the reset password token" do
-    u = Fabricate(:user, :email => "someone@somewhere.com")
+    u = FactoryGirl.create(:user, :email => "someone@somewhere.com")
     Notifier.expects(:send_forgot_password_notification)
     assert_nil u.perishable_token
 

@@ -5,7 +5,7 @@ describe "user search" do
   include AcceptanceHelper
 
   before do
-    zebra = Fabricate(:user, :username => "zebra")
+    zebra = FactoryGirl.create(:user, :username => "zebra")
   end
 
   it "can search for users" do
@@ -48,9 +48,7 @@ describe "user search" do
 
   describe "pagination" do
     it "does not paginate when there are too few" do
-      5.times do
-        Fabricate(:user)
-      end
+      FactoryGirl.create_list(:user, 5)
 
       visit "/users?search=user"
 
@@ -59,9 +57,7 @@ describe "user search" do
     end
 
     it "paginates forward only if on the first page" do
-      30.times do
-        Fabricate(:user)
-      end
+      FactoryGirl.create_list(:user, 30)
 
       visit "/users?search=user"
 
@@ -70,9 +66,7 @@ describe "user search" do
     end
 
     it "paginates backward only if on the last page" do
-      30.times do
-        Fabricate(:user)
-      end
+      FactoryGirl.create_list(:user, 30)
 
       visit "/users?search=user"
       click_link "next_button"
@@ -82,9 +76,7 @@ describe "user search" do
     end
 
     it "paginates forward and backward if on a middle page" do
-      54.times do
-        Fabricate(:user)
-      end
+      FactoryGirl.create_list(:user, 54)
 
       visit "/users?search=user"
       click_link "next_button"

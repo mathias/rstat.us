@@ -28,6 +28,8 @@ rescue Mongo::ConnectionFailure => e
   exit 1
 end
 
+FactoryGirl.find_definitions
+
 module TestHelper
   def setup
     DatabaseCleaner.strategy = :truncation

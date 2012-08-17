@@ -5,7 +5,7 @@ describe UpdateJsonDecorator do
 
   describe '#to_json, which implicitly calls as_json' do
     before do
-      @update           = Fabricate(:update)
+      @update           = FactoryGirl.create(:update)
       @decorated_update = UpdateJsonDecorator.decorate(@update)
       @json             = @decorated_update.to_json
       @parsed_json      = JSON.parse(@json)

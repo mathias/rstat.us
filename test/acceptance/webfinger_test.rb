@@ -13,7 +13,7 @@ describe "Webfinger" do
   end
 
   it "renders the user's xrd" do
-    @user = Fabricate(:user)
+    @user = FactoryGirl.create(:user)
     param = "acct:#{@user.username}@#{@user.author.domain}"
     get "/users/#{param}/xrd.xml"
     if last_response.status == 301
