@@ -5,6 +5,6 @@ FactoryGirl.define do
   factory :user do
     username
     email
-    author
+    author { FactoryGirl.create(:author) }
   end
 end

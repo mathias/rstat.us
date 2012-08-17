@@ -231,7 +231,7 @@ describe "update" do
     end
 
     it "has a status of myself in my timeline" do
-      update = FactoryGirl.create(:update, :author => @u.author)
+      update = FactoryGirl.create(:update, { :author => @u.author })
       @u.feed.updates << update
       visit "/"
       assert_match page.body, /#{update.text}/
@@ -239,7 +239,7 @@ describe "update" do
 
     it "has a status of someone i'm following in my timeline" do
       u2 = FactoryGirl.create(:user)
-      update = FactoryGirl.create(:update, :author => u2.author)
+      update = FactoryGirl.create(:update, { :author => u2.author })
       u2.feed.updates << update
       @u.follow! u2.feed
 
@@ -249,7 +249,7 @@ describe "update" do
 
     it "does not have a status of someone i'm not following in my timeline" do
       u2 = FactoryGirl.create(:user)
-      update = FactoryGirl.create(:update, :author => u2.author)
+      update = FactoryGirl.create(:update, { :author => u2.author })
       u2.feed.updates << update
 
       visit "/"
@@ -263,7 +263,7 @@ describe "update" do
     end
 
     it "has my updates in the world view" do
-      update = FactoryGirl.create(:update, :author => @u.author)
+      update = FactoryGirl.create(:update, { :author => @u.author })
       @u.feed.updates << update
 
       visit "/updates"
@@ -272,7 +272,7 @@ describe "update" do
 
     it "has someone i'm following in the world view" do
       u2 = FactoryGirl.create(:user)
-      update = FactoryGirl.create(:update, :author => u2.author)
+      update = FactoryGirl.create(:update, { :author => u2.author })
       u2.feed.updates << update
       @u.follow! u2.feed
 
@@ -282,7 +282,7 @@ describe "update" do
 
     it "has someone i'm not following in the world view" do
       u2 = FactoryGirl.create(:user)
-      update = FactoryGirl.create(:update, :author => u2.author)
+      update = FactoryGirl.create(:update, { :author => u2.author })
       u2.feed.updates << update
 
       visit "/updates"

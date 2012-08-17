@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :feed do
-    author
+    author { FactoryGirl.create(:author) }
   end
 end
