@@ -48,6 +48,10 @@ gem "delayed_job", :git => "git://github.com/collectiveidea/delayed_job.git", :t
 gem "delayed_job_mongo_mapper", :git => "git://github.com/earbits/delayed_job_mongo_mapper.git"
 gem "whenever", "~> 0.6.8"
 
+group :development do
+  gem 'thin'
+end
+
 group :development, :test do
   gem "database_cleaner", "~> 0.6.7"
   gem "fabrication", "~> 1.2.0"
@@ -61,6 +65,7 @@ group :development, :test do
   gem "launchy", "~> 2.0.5"
   gem "minitest", "~> 2.12.1"
   gem "quiet_assets", "~> 1.0.0"
+  gem 'pry-rails'
 end
 
 group :test do
