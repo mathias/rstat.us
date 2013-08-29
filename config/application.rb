@@ -64,7 +64,7 @@ module RstatUs
     config.generators do |g|
       g.template_engine :haml
       g.test_framework :mini_test, :spec => true
-      g.orm :mongo_mapper
+      g.orm :data_mapper
     end
 
   end

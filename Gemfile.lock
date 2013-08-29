@@ -119,6 +119,9 @@ GEM
     data_objects (0.10.13)
       addressable (~> 2.1)
     database_cleaner (0.6.7)
+    dm-active_model (1.2.1)
+      activemodel (~> 3.0)
+      dm-core (~> 1.2.0)
     dm-aggregates (1.2.0)
       dm-core (~> 1.2.0)
     dm-constraints (1.2.0)
@@ -133,6 +136,11 @@ GEM
     dm-postgres-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_postgres (~> 0.10.6)
+    dm-rails (1.2.1)
+      actionpack (~> 3.0)
+      dm-active_model (~> 1.2.0)
+      dm-core (~> 1.2.0)
+      railties (~> 3.0)
     dm-serializer (1.2.2)
       dm-core (~> 1.2.0)
       fastercsv (~> 1.5)
@@ -335,6 +343,7 @@ DEPENDENCIES
   delayed_job!
   delayed_job_mongo_mapper!
   dm-postgres-adapter (~> 1.2.0)
+  dm-rails
   draper (~> 0.11.1)
   exceptional (~> 2.0.32)
   fabrication (~> 1.2.0)

@@ -25,8 +25,11 @@ gem 'airbrake',                 "~> 3.0.9"
 gem 'bcrypt-ruby',              "~> 3.0.0"
 gem 'omniauth',                 "~> 1.1.0"
 gem "omniauth-twitter",         "~> 1.0.0"
+
+gem "dm-rails"
 gem "data_mapper",              "~> 1.2.0"
 gem "dm-postgres-adapter",      "~> 1.2.0"
+
 gem "i18n",                     "~> 0.6.0"
 gem "tire",                     "~> 0.4.1"
 gem "twitter",                  "~> 4.8.0"
@@ -50,7 +53,6 @@ gem "delayed_job_mongo_mapper", :git => "git://github.com/earbits/delayed_job_mo
 gem "whenever",                 "~> 0.6.8"
 
 # web server
-
 gem "puma",                     "~> 1.6.3"
 
 group :development, :test do
