@@ -49,6 +49,6 @@
 
   != render :partial => "shared/pagination"
 
-- if updates.empty?
+- if updates && updates.empty?
   .empty
     #{defined?(tagline) ? tagline : "There are no updates here yet" }
