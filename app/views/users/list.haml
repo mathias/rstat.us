@@ -2,7 +2,7 @@
 - content_for :title do
   = title
 
-- if @authors.empty?
+- if @authors && @authors.empty?
   %h3 No one yet!
   Well, that's kind of boring.  Why not check out the links on the left to browse users or search rstat.us updates?
 
