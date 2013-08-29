@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
+    session[:user_id] = nil
     redirect_to root_path unless current_user
   end
 
