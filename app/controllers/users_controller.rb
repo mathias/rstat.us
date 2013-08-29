@@ -11,6 +11,7 @@ class UsersController < ApplicationController
       begin
         @authors = Author.search(params)
       rescue RegexpError
+        @authors = []
         flash[:error] = "Please enter a valid search term"
         redirect_to users_path and return
       end
