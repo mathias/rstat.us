@@ -17,7 +17,7 @@ group :assets do
   # Many Linux environments do not have a javascript environment which is
   # required by the asset generators. However, windows and os x have one
   # provided by the system.
-  gem "therubyracer",           "~> 0.11.3" unless RUBY_PLATFORM.match(/darwin|mswin/)
+  gem "therubyracer",           "~> 0.11.3"
 end
 
 gem "rollbar"
