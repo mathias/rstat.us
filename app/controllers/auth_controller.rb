@@ -90,7 +90,7 @@ class AuthController < ApplicationController
   # This lets someone remove a particular Authorization from their account.
   def destroy
     auth = current_user.authorizations.where(:provider => params[:provider])
-    auth.map(&:destroy) unless auth.empty?
+    auth.map(&:destroy) unless auth && auth.empty?
     # Without re-setting the session[:user_id] we're logged out
     sign_in(current_user)
 

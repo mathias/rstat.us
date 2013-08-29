@@ -8,7 +8,7 @@
       %input{:name => "search", :type => "text", :value => params[:search]}
       %input{:type => "submit", :value => "Search", :class => "button"}
 
-- if @authors.empty?
+- if @authors && @authors.empty?
   .empty
     Sorry, no users that match.
 - else
