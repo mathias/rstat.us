@@ -37,7 +37,7 @@
 
         .actions
           -# when @timeline is true, this is a list on the user's page
-          -unless current_user.nil? or (current_user.author.id == update.author.id)
+          -unless current_user.nil? or ((current_user.author && current.author.id) == (update.author && update.author.id))
             %a.share{:href => (controller.controller_name == "updates" ? "" : "/") + "?share=#{update.id}"} share
             |
             %a.reply{:href => (controller.controller_name == "updates" ? "" : "/") + "?reply=#{update.id}"} reply
