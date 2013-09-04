@@ -5,7 +5,7 @@
 class Notifier
 
   def self.send_forgot_password_notification(recipient, token)
-    Pony.mail(:to => recipient,
+    mail(:to => recipient,
               :subject => "Reset your rstat.us password",
               :from => "rstatus@rstat.us",
               :body => render_haml_template("forgot_password", {:token => token}),
@@ -13,7 +13,7 @@ class Notifier
   end
 
   def self.send_confirm_email_notification(recipient, token)
-    Pony.mail(:to => recipient,
+    mail(:to => recipient,
               :subject => "Confirm your rstat.us email",
               :from => "rstatus@rstat.us",
               :body => render_haml_template("email_change", {:token => token}),
@@ -21,6 +21,10 @@ class Notifier
   end
 
   private
+
+  def self.mail(message)
+    !Rails.env.test? && ENV['PONY_VIA_OPTIONS'].nil? ? nil : Pony.mail(message)
+  end
 
   # This was kinda crazy to figure out. We have to make our own instantiation
   # of the Engine, and then set local variables. Crazy.
