@@ -42,7 +42,7 @@
             |
             %a.reply{:href => (controller.controller_name == "updates" ? "" : "/") + "?reply=#{update.id}"} reply
 
-          - if current_user and update.author.id == current_user.author.id
+          - if current_user and ((current_user.author && current.author.id) == (update.author && update.author.id))
             = form_tag "/updates/#{update.id}" do
               %input{:type => "hidden", :name => "_method", :value => "delete"}
               = submit_tag "I Regret This", :class => "remove-update", :confirm => t(:remove_update, :scope => :confirms)
