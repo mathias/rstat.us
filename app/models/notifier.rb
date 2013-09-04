@@ -23,7 +23,9 @@ class Notifier
   private
 
   def self.mail(message)
-    !Rails.env.test? && ENV['PONY_VIA_OPTIONS'].nil? ? nil : Pony.mail(message)
+    if ENV['PONY_VIA_OPTIONS'] && !Rails.env.test?
+      Pony.mail(message)
+    end
   end
 
   # This was kinda crazy to figure out. We have to make our own instantiation
